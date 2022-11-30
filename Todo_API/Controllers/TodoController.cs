@@ -5,6 +5,7 @@ namespace Todo_API.Controllers;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 [Route("api/todo")]
 [ApiController]
@@ -22,6 +23,12 @@ public ActionResult<List<Todo>> GetAll()
     {
 return _context.ToDo.ToList();
     }
+
+[HttpGet]
+[Route("todoprof")]
+[Authorize(Roles = "professor")]
+public string Professor() => "Professor";
+
 
     [HttpGet("{TodoId}")]
 public ActionResult<List<Todo>> Get(int TodoId)

@@ -6,7 +6,6 @@ import axios from 'axios';
 const title = "Suas Tarefas";
 
 const urlAPI = "http://localhost:5289/api/todo";
-//const urlApiTodos = "http://localhost:5289/api/controller/todo"
 const initialState = {
 todo: { id: 0, titulo: '', todo:'', tempo: 0},
 lista: []
