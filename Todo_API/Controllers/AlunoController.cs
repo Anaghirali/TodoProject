@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 
-[Route("api/todo")]
+[Route("api/aluno")]
 [ApiController]
-public class TodoController : ControllerBase
+public class AlunoController : ControllerBase
 {
     private TodoContext _context;
-    public TodoController(TodoContext context)
+    public AlunoController(TodoContext context)
     {
         // construtor
         _context = context;
     }
 
     [HttpGet,]
-    [Authorize(Roles = "professor")]
+    [Authorize(Roles = "professor, aluno")]
     public ActionResult<List<Todo>> GetAll()
     {
         return _context.ToDo.ToList();
@@ -28,7 +28,7 @@ public class TodoController : ControllerBase
     //[Route("todoprof");
 
     [HttpGet("{TodoId}")]
-    [Authorize(Roles = "professor")]
+    [Authorize(Roles = "professor, aluno")]
     public ActionResult<List<Todo>> Get(int TodoId)
     {
         try
@@ -46,7 +46,7 @@ public class TodoController : ControllerBase
         }
     }
     [HttpPost]
-    [Authorize(Roles = "professor")]
+    [Authorize(Roles = "professor, aluno")]
     public async Task<ActionResult> post(Todo model)
     {
         try
@@ -68,7 +68,7 @@ public class TodoController : ControllerBase
 
 
     [HttpPut("{TodoId}")]
-    [Authorize(Roles = "professor")]
+    [Authorize(Roles = "professor, aluno")]
     public async Task<IActionResult> put(int TodoId, Todo dadosTodoAlt)
     {
         try
@@ -92,7 +92,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpDelete("{TodoId}")]
-    [Authorize(Roles = "professor")]
+    [Authorize(Roles = "professor, aluno")]
     public async Task<ActionResult> delete(int TodoId)
     {
         try

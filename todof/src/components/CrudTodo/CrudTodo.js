@@ -22,6 +22,7 @@ export default function CrudAluno() {
     const [todo, setTodo] = useState({
         id: 0, titulo: '', todo: '', tempo: 0
     });
+    const [inputcls, setInputcls] = useState({ id: 0, titulo: '', todo: '', tempo: 0});
     
     
     
@@ -34,9 +35,9 @@ export default function CrudAluno() {
     }
 
     function getListaAtualizada(todo, add = true){
-        const lista = todo.filter(a => a.id !== todo.id)
-        if(add) lista.unshift(todo)
-        return lista
+        const lista1 = lista.filter(a => a.id !== todo.id)
+        if(add) lista1.unshift(todo)
+        return lista1
     }
 
     const adicionarCurso = async () => {
@@ -45,7 +46,10 @@ export default function CrudAluno() {
         const metodo = todo.id ? 'put' : 'post'
         const url = todo.id ? `${urlAPI}/${DadosTodo.id}` : urlAPI
 
-        axios[metodo](url, DadosTodo)
+        axios[metodo](url, DadosTodo, {headers: {
+            Authorization:
+                'Bearer ' + user.token
+    }})
         .then(resp => {
             let lista = getListaAtualizada(resp.data)
             todo({ DadosTodo: todo.DadosTodo, lista})
@@ -56,10 +60,17 @@ export default function CrudAluno() {
         })
     }
 
+    const Cancelar = () => {
+        setTodo(inputcls)
+    }
+
     const deletarTodo = async (todo) => {
         const url = urlAPI + "/" + todo.id
         if(window.confirm("Deseja deletar o todo: " + todo.titulo)){
-            axios['delete'](url, todo)
+            axios['delete'](url, todo, {headers: {
+                Authorization:
+                    'Bearer ' + user.token
+        }})
             .then(resp => {
                 let lista = getListaAtualizada(resp.data)
                 todo({ DadosTodo: todo.DadosTodo, lista})
@@ -79,7 +90,7 @@ useEffect(() => {
         UserService.getProfessorBoard().then(
             (response) => {
                 console.log("useEffect getProfessorBoard: " + response.data)
-                setLista(response.data);
+                setLista(response.data)
                 setMens(null);
             },
             (error) => {
@@ -93,7 +104,7 @@ useEffect(() => {
                 console.log("_mens: " + _mens);
             }
         );
-    }, []);
+    }, [lista]);
 
     
 
@@ -140,6 +151,7 @@ useEffect(() => {
                     Salvar
                 </button>
                 <button className="btnCancelar"
+                onClick={Cancelar}
                     >
                     Cancelar
                 </button>
@@ -168,12 +180,12 @@ useEffect(() => {
                                     <td>{todo.todo}</td>
                                     <td>{todo.tempo}</td>
                                     <td>
-                                        <button onClick={() => this.carregar(todo)} >
+                                        <button onClick={() => alterarTodo(todo)} >
                                             Altera
                                         </button>
                                     </td>
                                     <td>
-                                        <button onClick={() => this.remover(todo)} >
+                                        <button onClick={() => deletarTodo(todo)} >
                                             Remove
                                         </button>
                                     </td>
