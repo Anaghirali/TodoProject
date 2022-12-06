@@ -170,6 +170,8 @@ useEffect(() => {
                             <th className="tabTitulo">Titulo da Tarefa</th>
                             <th className="tabTituloTodo">Explicação</th>
                             <th className="tabTituloTempo">Tempo em dias</th>
+                            <th>Alterar</th><th >Remover</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -180,13 +182,13 @@ useEffect(() => {
                                     <td>{todo.todo}</td>
                                     <td>{todo.tempo}</td>
                                     <td>
-                                        <button onClick={() => alterarTodo(todo)} >
-                                            Altera
+                                        <button className='btnalterar' onClick={() => alterarTodo(todo)} >
+                                            Alterar
                                         </button>
                                     </td>
                                     <td>
-                                        <button onClick={() => deletarTodo(todo)} >
-                                            Remove
+                                        <button className='btnremover'onClick={() => deletarTodo(todo)} >
+                                            Remover
                                         </button>
                                     </td>
                                 </tr>
@@ -197,13 +199,16 @@ useEffect(() => {
         )
     }
    
-        return (
-
-            <Main title={title}>
-                {(mens) ? "Erro" + mens :
-                    renderForm()},
-                {renderTable()}
-            </Main>
-        )
-
+    return (
+        <Main title={title}>
+            {
+                (mens != null) ? <h2>Você não é um professor</h2> :
+                    <>
+                        {renderForm()}
+                        {renderTable()}
+                        
+                    </>
+            }
+        </Main>
+    )
     }

@@ -5,7 +5,7 @@ nav.menu {
 
 .menu a {
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: rgb(2, 22, 2);
     padding: 10px;
     font-size: 30px;
     padding: 5px;
@@ -13,5 +13,5 @@ nav.menu {
 }
 
 .menu a:hover {
-    color: #5b8cbe;
+    color: #75be5b;
 }

@@ -47,6 +47,7 @@ export default class CrudAluno extends Component {
                                 <td>{todo.titulo}</td>
                                 <td>{todo.todo}</td>
                                 <td>{todo.tempo}</td>
+                               
                     </tr>
                         )}
                     </tbody>

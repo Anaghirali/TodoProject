@@ -9,8 +9,8 @@ div.content{
 }
 
 main > div {
-    background-color: rgb(143, 144, 233);
-    box-shadow: 0px 0px 15px #0004;
+    background-color: rgba(139, 156, 119, 0.789);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.352);
     padding: 20px;
 
 }

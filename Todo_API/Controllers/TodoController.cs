@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 
-[Route("api/todo")]
+
 [ApiController]
-public class TodoController : ControllerBase
+[Route("api/todo")]
+public class TodoController : Controller
 {
     private TodoContext _context;
     public TodoController(TodoContext context)
@@ -18,7 +19,7 @@ public class TodoController : ControllerBase
         _context = context;
     }
 
-    [HttpGet,]
+    [HttpGet]
     [Authorize(Roles = "professor")]
     public ActionResult<List<Todo>> GetAll()
     {
@@ -92,7 +93,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpDelete("{TodoId}")]
-    [Authorize(Roles = "professor")]
+    //[Authorize(Roles = "professor")]
     public async Task<ActionResult> delete(int TodoId)
     {
         try
