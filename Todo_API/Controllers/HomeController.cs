@@ -72,19 +72,14 @@ namespace Todo_API.Controllers
         public string Professor() => "Professor";
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            var authSigningKey = new
-
-            SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
             var token = new JwtSecurityToken(
             expires: DateTime.Now.AddHours(3),
             issuer: _configuration["JWT:ValidIssuer"],
             audience: _configuration["JWT:ValidAudience"],
             claims: authClaims,
-            signingCredentials: new SigningCredentials(authSigningKey,
-
-            SecurityAlgorithms.HmacSha256)
-
+            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
             );
             return token;
         }
