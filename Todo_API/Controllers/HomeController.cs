@@ -60,8 +60,7 @@ namespace Todo_API.Controllers
         [HttpGet]
         [Route("authenticated")]
         [Authorize]
-        public string Authenticated() => String.Format("Autenticado - {0}",
-        User.Identity.Name);
+        public string Authenticated() => String.Format("Autenticado - {0}", User.Identity.Name);
         [HttpGet]
         [Route("aluno")]
         [Authorize(Roles = "aluno,professor")]
